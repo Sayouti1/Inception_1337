@@ -31,6 +31,19 @@ services:
       - inception
     ports:
       - 443:443
+      - 8080:8080
+    depends_on:
+      - wordpress
+      - adminer
+      
+  adminer:
+    build: ./requirements/bonus/adminer
+    image: adminer
+    container_name: adminer
+    volumes:
+      - wp:/var/www/html
+    networks:
+      - inception
     depends_on:
       - wordpress
 
