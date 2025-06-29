@@ -8,6 +8,7 @@ services:
       - database:/var/lib/mysql
     networks:
       - inception
+    restart: always
 
   wordpress:
     build: ./requirements/wordpress
@@ -20,6 +21,7 @@ services:
       - inception
     depends_on:
      - mariadb
+    restart: always
   nginx:
     build: ./requirements/nginx
     image: nginx
@@ -34,6 +36,7 @@ services:
     depends_on:
       - wordpress
       - adminer
+    restart: always
       
   adminer:
     build: ./requirements/bonus/adminer
@@ -45,6 +48,7 @@ services:
       - wordpress
     ports:
         - 8080:8080
+    restart: always
   redis:
     build: ./requirements/bonus/redis
     image: redis
@@ -53,8 +57,18 @@ services:
       - wordpress
     networks:
       - inception
+    restart: always
 
-
+  ftp:
+    build: ./requirements/bonus/ftp
+    image: ftp
+    container_name: ftp
+    env_file: .env
+    networks:
+      - inception
+    ports:
+      - 21:21
+    restart: always
 
 
 networks:
