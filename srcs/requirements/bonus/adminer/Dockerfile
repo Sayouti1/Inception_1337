@@ -1,14 +1,12 @@
 FROM debian:bullseye
 
-RUN apt update && apt install -y wget php php-fpm php-mysql 
+RUN apt update && apt install -y wget php php-mysql 
 
-RUN mkdir -p /var/www/html/adminer && \
+RUN mkdir -p /var/www/html && \
     mkdir -p /run/php
 
+RUN wget https://www.adminer.org/latest-mysql.php -O /var/www/html/index.php
 
-COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+WORKDIR /var/www/html
 
-COPY ./tools/init.sh /tmp/init.sh
-RUN chmod +x /tmp/init.sh
-
-CMD ["/tmp/init.sh"]
+CMD ["php", "-S", "0.0.0.0:8080"]

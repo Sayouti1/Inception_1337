@@ -1,0 +1,11 @@
+FROM debian:bullseye
+
+RUN apt update && apt upgrade -y && apt install -y lsb-release curl gpg
+
+RUN curl -fsSL https://packages.redis.io/gpg | gpg --dearmor -o /usr/share/keyrings/redis-archive-keyring.gpg
+RUN chmod 644 /usr/share/keyrings/redis-archive-keyring.gpg
+RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://packages.redis.io/deb $(lsb_release -cs) main" | tee /etc/apt/sources.list.d/redis.list
+
+RUN apt update && apt install -y redis
+
+CMD ["redis-server", "--daemonize", "no"]

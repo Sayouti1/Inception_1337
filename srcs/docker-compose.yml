@@ -5,7 +5,7 @@ services:
     container_name: mariadb
     env_file: .env
     volumes:
-      - mdb:/var/lib/mysql
+      - database:/var/lib/mysql
     networks:
       - inception
 
@@ -15,7 +15,7 @@ services:
     container_name: wordpress
     env_file: .env
     volumes:
-      - wp:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - inception
     depends_on:
@@ -26,12 +26,11 @@ services:
     container_name: nginx
     env_file: .env
     volumes:
-      - wp:/var/www/html
+      - wordpress:/var/www/html
     networks:
       - inception
     ports:
       - 443:443
-      - 8080:8080
     depends_on:
       - wordpress
       - adminer
@@ -40,26 +39,37 @@ services:
     build: ./requirements/bonus/adminer
     image: adminer
     container_name: adminer
-    volumes:
-      - wp:/var/www/html
     networks:
       - inception
     depends_on:
       - wordpress
+    ports:
+        - 8080:8080
+  redis:
+    build: ./requirements/bonus/redis
+    image: redis
+    container_name: redis
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+
+
+
 
 networks:
   inception:
     driver: bridge
 
 volumes:
-  mdb:
+  database:
     driver: local
     driver_opts:
       type: none
       o: bind
       device: /home/aes-sayo/data/mysql
 
-  wp:
+  wordpress:
     driver: local
     driver_opts:
       type: none
