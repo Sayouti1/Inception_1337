@@ -1,14 +1,15 @@
 server {
-    listen 443 http2 ssl;
-    listen [::]:443 http2 ssl;
+    listen 443 ssl;
+    listen [::]:443 ssl;
 
     server_name ${DOMAIN_NAME};
     server_name www.${DOMAIN_NAME};
 
+    ssl_protocols TLSv1.2 TLSv1.3;
+
     ssl_certificate /etc/nginx/certs/aes-sayo.crt;
     ssl_certificate_key /etc/nginx/certs/aes-sayo.key;
-
-    ssl_protocols TLSv1.3;
+    
     root /var/www/html;
     
     index index.php;
@@ -17,6 +18,12 @@ server {
         autoindex on;
         autoindex_format html;
         try_files $uri $uri/ /index.php?$args;
+    }
+
+    location /adminer {
+        proxy_pass http://adminer:8080; 
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
     }
 
     location ~ .php$ {

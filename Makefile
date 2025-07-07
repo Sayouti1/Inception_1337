@@ -6,5 +6,7 @@ start:
 
 stop:
 	docker compose -f ./srcs/docker-compose.yml down -v
-
+	sudo rm -rf ~/data/mysql/*
+	sudo rm -rf ~/data/wordpress/*
+ 
 re: stop start

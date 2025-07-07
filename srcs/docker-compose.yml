@@ -1,4 +1,5 @@
 services:
+  
   mariadb:
     build: ./requirements/mariadb
     image: mariadb
@@ -21,7 +22,9 @@ services:
       - inception
     depends_on:
      - mariadb
+     - redis
     restart: always
+
   nginx:
     build: ./requirements/nginx
     image: nginx
@@ -35,7 +38,7 @@ services:
       - 443:443
     depends_on:
       - wordpress
-      - adminer
+      - mariadb
     restart: always
       
   adminer:
@@ -46,30 +49,20 @@ services:
       - inception
     depends_on:
       - wordpress
-    ports:
-        - 8080:8080
+      - mariadb
+    #ports:
+        #- 8080:8080
     restart: always
+
   redis:
     build: ./requirements/bonus/redis
     image: redis
     container_name: redis
     depends_on:
-      - wordpress
+      - mariadb
     networks:
       - inception
     restart: always
-
-  ftp:
-    build: ./requirements/bonus/ftp
-    image: ftp
-    container_name: ftp
-    env_file: .env
-    networks:
-      - inception
-    ports:
-      - 21:21
-    restart: always
-
 
 networks:
   inception:
@@ -82,7 +75,7 @@ volumes:
       type: none
       o: bind
       device: /home/aes-sayo/data/mysql
-
+  
   wordpress:
     driver: local
     driver_opts:

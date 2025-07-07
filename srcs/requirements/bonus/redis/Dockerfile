@@ -10,4 +10,8 @@ RUN echo "deb [signed-by=/usr/share/keyrings/redis-archive-keyring.gpg] https://
 
 RUN apt update && apt install -y redis
 
-CMD ["redis-server", "--daemonize", "no"]
+RUN sed -i "s/protected-mode yes/protected-mode no/" /etc/redis/redis.conf
+RUN sed -i "s/bind 127.0.0.1/bind 0.0.0.0/" /etc/redis/redis.conf
+
+CMD ["redis-server", "/etc/redis/redis.conf", "--daemonize", "no"]
+
