@@ -11,7 +11,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
     --dbname="${MYSQL_DATABASE}" \
     --dbuser="${MYSQL_USER}" \
     --dbpass="${MYSQL_USER_PASSWORD}" \
-    --dbhost="${WP_DATABASE_HOST}" \
+    --dbhost="${DATABASE_HOST}" \
     --path="/var/www/html" \
     --allow-root
 fi

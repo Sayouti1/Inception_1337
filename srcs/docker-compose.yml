@@ -64,6 +64,19 @@ services:
       - inception
     restart: always
 
+  static_website:
+    build: ./requirements/bonus/static_website
+    image: static_website
+    container_name: static_website
+    depends_on:
+      - mariadb
+    env_file: .env
+    ports:
+      - 6789:6789
+    networks:
+      - inception
+    restart: always
+
 networks:
   inception:
     driver: bridge
