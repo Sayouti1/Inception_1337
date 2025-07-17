@@ -92,7 +92,20 @@ services:
     networks:
       - inception
     restart: always
-    
+  
+  redis_commander:
+    build: ./requirements/bonus/redis_commander
+    image: redis_commander
+    container_name: redis_commander
+    env_file: .env
+    ports:
+      - 8081:8081
+    networks:
+      - inception
+    depends_on:
+      - redis
+    restart: always
+
 networks:
   inception:
     driver: bridge
