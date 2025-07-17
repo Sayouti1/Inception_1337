@@ -1,9 +1,6 @@
 FROM debian:bullseye
 
-RUN apt update && apt install -y \
-    curl \
-    gnupg \
-    ca-certificates \
+RUN apt update && apt install -y curl gnupg ca-certificates \
     && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
     && apt-get install -y nodejs \
     && apt-get clean \
