@@ -1,12 +1,13 @@
 #!/bin/bash
 
+echo "FTP_USER = $FTP_USER"
+echo "FTP_USER_PASSWORD = $FTP_USER_PASSWORD"
 
-useradd -d /var/www/html -s /usr/sbin/nologin ftpuser && echo "ftpuser:${FTP_PASSWORD}" | chpasswd
-chown -R ftpuser:ftpuser /var/www/html
+mkdir -p /var/run/vsftpd/empty
 
-sed -i 's/listen=NO/listen=YES/' /etc/vsftpd.conf
+useradd -d /var/www/html -s /bin/bash ${FTP_USER}
+echo "${FTP_USER}:${FTP_USER_PASSWORD}" | chpasswd
 
-echo "" >> /etc/vsftpd.conf
-echo "local_root=/var/www/html" >> /etc/vsftpd.conf
+chown -R ${FTP_USER}:${FTP_USER} /var/www/html
 
-/usr/sbin/vsftpd /etc/vsftpd.conf
+exec /usr/sbin/vsftpd /etc/vsftpd.conf
