@@ -9,4 +9,4 @@ RUN wget https://www.adminer.org/latest-mysql.php -O /var/www/html/index.php
 
 WORKDIR /var/www/html
 
-CMD ["php", "-S", "0.0.0.0:8080"]
+ENTRYPOINT ["php", "-S", "0.0.0.0:8080"]

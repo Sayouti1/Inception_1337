@@ -14,4 +14,4 @@ WORKDIR /home/redisuser
 
 USER redisuser
 
-CMD ["redis-commander", "--redis-host", "redis"]
+ENTRYPOINT ["redis-commander", "--redis-host", "redis"]

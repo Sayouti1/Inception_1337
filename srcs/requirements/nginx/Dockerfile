@@ -9,4 +9,4 @@ RUN mkdir /etc/nginx/certs && openssl req -x509 -nodes -days 365 -newkey rsa:204
 
 COPY ./conf/default /etc/nginx/sites-available/default
 
-CMD ["nginx", "-g", "daemon off;"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
