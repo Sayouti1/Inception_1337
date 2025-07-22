@@ -22,7 +22,7 @@ services:
       - inception
     depends_on:
      - mariadb
-     - redis
+    #  - redis
     restart: always
 
   nginx:
@@ -41,70 +41,69 @@ services:
       - mariadb
     restart: always
       
-  adminer:
-    build: ./requirements/bonus/adminer
-    image: adminer
-    container_name: adminer
-    networks:
-      - inception
-    depends_on:
-      - wordpress
-      - mariadb
-    restart: always
+  # adminer:
+  #   build: ./requirements/bonus/adminer
+  #   image: adminer
+  #   container_name: adminer
+  #   networks:
+  #     - inception
+  #   depends_on:
+  #     - wordpress
+  #     - mariadb
+  #   restart: always
 
-  redis:
-    build: ./requirements/bonus/redis
-    image: redis
-    container_name: redis
-    depends_on:
-      - mariadb
-    networks:
-      - inception
-    restart: always
+  # redis:
+  #   build: ./requirements/bonus/redis
+  #   image: redis
+  #   container_name: redis
+  #   depends_on:
+  #     - mariadb
+  #   networks:
+  #     - inception
+  #   restart: always
 
-  static_website:
-    build: ./requirements/bonus/static_website
-    image: static_website
-    container_name: static_website
-    depends_on:
-      - mariadb
-    env_file: .env
-    ports:
-      - 6789:6789
-    networks:
-      - inception
-    restart: always
+  # website:
+  #   build: ./requirements/bonus/website
+  #   image: website
+  #   container_name: website
+  #   depends_on:
+  #     - mariadb
+  #   env_file: .env
+  #   ports:
+  #     - 6789:6789
+  #   networks:
+  #     - inception
+  #   restart: always
 
-  ftp:
-    build: ./requirements/bonus/ftp
-    image: ftp
-    container_name: ftp
-    env_file: .env
-    ports:
-      - 20:20
-      - 21:21
-      - "30000-30010:30000-30010"
-    volumes:
-      - wordpress:/var/www/html
-    depends_on:
-      - wordpress
-
-    networks:
-      - inception
-    restart: always
+  # ftp:
+  #   build: ./requirements/bonus/ftp
+  #   image: ftp
+  #   container_name: ftp
+  #   env_file: .env
+  #   ports:
+  #     - 20:20
+  #     - 21:21
+  #     - "30000-30010:30000-30010"
+  #   volumes:
+  #     - wordpress:/var/www/html
+  #   depends_on:
+  #     - wordpress
+  #   networks:
+  #     - inception
+  #   restart: always
   
-  redis_commander:
-    build: ./requirements/bonus/redis_commander
-    image: redis_commander
-    container_name: redis_commander
-    env_file: .env
-    ports:
-      - 8081:8081
-    networks:
-      - inception
-    depends_on:
-      - redis
-    restart: always
+  # redis_commander:
+  #   build: ./requirements/bonus/redis_commander
+  #   image: redis_commander
+  #   container_name: redis_commander
+  #   env_file: .env
+  #   ports:
+  #     - 8081:8081
+  #   networks:
+  #     - inception
+  #   depends_on:
+  #     - redis
+  #   restart: always
 
 networks:
   inception:

@@ -41,16 +41,16 @@ echo "WordPress init done."
 wp theme install twentyseventeen --path="/var/www/html" --activate --allow-root
 echo "new theme installed."
 
-wp plugin install redis-cache --path="/var/www/html" --activate --allow-root
-echo "redis-cache installed."
+# wp plugin install redis-cache --path="/var/www/html" --activate --allow-root
+# echo "redis-cache installed."
 
-wp config set WP_REDIS_HOST redis --path="/var/www/html" --type=constant --allow-root
-echo "redis configured done."
+# wp config set WP_REDIS_HOST redis --path="/var/www/html" --type=constant --allow-root
+# echo "redis configured done."
 
-wp redis enable --path="/var/www/html"  --allow-root
-echo "redis enabled."
+# wp redis enable --path="/var/www/html"  --allow-root
+# echo "redis enabled."
 
 chown -R www-data:www-data /var/www/html
 chmod -R 755 /var/www/html
 
-php-fpm7.4 -F
+exec php-fpm7.4 -F
