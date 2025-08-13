@@ -1,6 +1,6 @@
 # Inception_1337
 # Inception
-
+<img src="img/docker.jpg" width="100%">
 42 School project implementing a multi-service web infrastructure using Docker containers.
 
 ## Overview
